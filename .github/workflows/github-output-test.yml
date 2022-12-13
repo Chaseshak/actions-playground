@@ -10,6 +10,4 @@ jobs:
     steps:
       - run: echo "fooSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUT
         id: step1
-      - run:
-          echo "value of fooSecret:\n"
-          echo ${{ steps.step1.outputs.fooSecret }}
+      - run: echo ${{ steps.step1.outputs.fooSecret }}
