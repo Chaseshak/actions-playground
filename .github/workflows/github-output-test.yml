@@ -1,0 +1,15 @@
+name: Output Test
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  output-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "fooSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUTS
+        id: step1
+      - run:
+          echo "value of fooSecret:\n"
+          echo ${{ steps.step1.outputs.fooSecret }}
