@@ -25,8 +25,9 @@ jobs:
         uses: azure/cli@v1.0.7
         with:
           inlineScript: |-
-            echo 'Name1=$(az keyvault secret show --vault-name chaseTestVault --name secret1 --query value)' >> $GITHUB_OUTPUT
-            echo 'Name2=$(az keyvault secret show --vault-name chaseTestVault --name secret2 --query value)' >> $GITHUB_OUTPUT
+            echo $(az keyvault secret show --vault-name chaseTestVault --name secret1)
+            echo "Name1=$(az keyvault secret show --vault-name chaseTestVault --name secret1 --query value)" >> $GITHUB_OUTPUT
+            echo "Name2=$(az keyvault secret show --vault-name chaseTestVault --name secret2 --query value)" >> $GITHUB_OUTPUT
       - name: set job envs
         shell: bash
         run: echo 'ENV_SECRET=${{ steps.az-cli-testing.outputs.Name2 }}' >> $GITHUB_ENV
