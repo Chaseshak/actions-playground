@@ -27,10 +27,9 @@ jobs:
           inlineScript: |-
             echo 'Name1=$(az keyvault secret show --vault-name chaseTestVault --name secret1 --query value)' >> $GITHUB_OUTPUT
             echo 'Name2=$(az keyvault secret show --vault-name chaseTestVault --name secret2 --query value)' >> $GITHUB_OUTPUT
-      - run: |-
-          name: set job envs
-          shell: bash
-          run: echo 'ENV_SECRET=${{ steps.az-cli-testing.outputs.Name2 }}' >> $GITHUB_ENV
+      - name: set job envs
+        shell: bash
+        run: echo 'ENV_SECRET=${{ steps.az-cli-testing.outputs.Name2 }}' >> $GITHUB_ENV
       - run: |-
           echo ${{ steps.az-cli-testing.outputs.Name1 }}
           echo ${{ steps.az-cli-testing.outputs.Name2 }}
