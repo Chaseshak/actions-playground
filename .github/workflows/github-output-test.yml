@@ -34,3 +34,13 @@ jobs:
           echo ${{ steps.az-cli-testing.outputs.Name1 }}
           echo ${{ steps.az-cli-testing.outputs.Name2 }}
           echo ${{ env.ENV_SECRET }}
+      - name: check secret outputs and env
+        shell: bash
+        run: |-
+          if [ ${{ steps.az-cli-testing.outputs.Name1 }} == 'foo' ]; then
+            echo "Secret1 (output) is equal to foo"
+          fi
+          if  [ ${{ env.ENV_SECRET }} == 'bar' ]; then
+            echo "Secret2 (env) is equal to bar"
+          fi
+
