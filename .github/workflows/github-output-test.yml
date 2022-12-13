@@ -24,7 +24,8 @@ jobs:
       - id: az-cli-testing
         uses: azure/cli@v1.0.7
         with:
-          inlineScript: az keyvault secret show --vault-name chaseTestVault --name secret1
+          # inlineScript: az keyvault secret show --vault-name chaseTestVault --name secret1
+          inlineScript: az keyvault secret set --vault-name chaseTestVault --name fromActions --value SET
       - name: set job envs
         shell: bash
         run: echo 'ENV_SECRET=${{ steps.az-cli-testing.outputs.Name2 }}' >> $GITHUB_ENV
