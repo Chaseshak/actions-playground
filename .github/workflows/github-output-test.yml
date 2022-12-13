@@ -8,7 +8,7 @@ jobs:
   output-testing:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "fooSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUTS
+      - run: echo "fooSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUT
         id: step1
       - run:
           echo "value of fooSecret:\n"
