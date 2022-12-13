@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |-
-          echo "fooSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUT && \
+          echo "fooSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUT
           echo "barSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUT
         id: step1
-      - run: echo ${{ steps.step1.outputs.fooSecret }}
-      - run: echo ${{ steps.step1.outputs.barSecret }}
+      - run: |-
+          echo ${{ steps.step1.outputs.fooSecret }}
+          echo ${{ steps.step1.outputs.barSecret }}
