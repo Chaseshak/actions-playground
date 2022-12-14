@@ -23,13 +23,12 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - id: az-cli-testing
         run: |-
-          secret1=$(az keyvault secret show --vault-name chaseTestVault --name secret1 --query value)
-          echo "::add-mask::$secret1"
-          echo "secret1=$secret1" >> $GITHUB_ENV
-
-          secret2=$(az keyvault secret show --vault-name chaseTestVault --name secret2 --query value)
-          echo "::add-mask::$secret2"
-          echo "secret2=$secret2" >> $GITHUB_ENV
+          secret_names = $(az keyvault secret list --vault-name chaseTestVault --query "[].{name:name}" --output tsv)
+          for secret_name in $secret_names; do
+            secret_value=$(az keyvault secret show --vault-name chaseTestVault --name $secret_name --query value -o tsv)
+            echo "::add-mask::$secret_value"
+            echo "$secret_name=$secret_value" >> $GITHUB_ENV
+          done
       - name: check secret outputs and env
         run: |-
           echo ${{ env.secret1 }}
