@@ -22,11 +22,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - id: az-cli-testing
-        uses: azure/cli@v1.0.7
-        with:
-          inlineScript: |
-            echo "foo"
-            echo $(az keyvault secret show --vault-name chaseTestVault --name secret1)
+        run: |-
+          echo "foo"
+          echo $(az keyvault secret show --vault-name chaseTestVault --name secret1)
       - run: |-
           echo "foo"
       # echo ${{ env.ENV_SECRET }}
