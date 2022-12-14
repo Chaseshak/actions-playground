@@ -24,10 +24,12 @@ jobs:
       - id: az-cli-testing
         run: |-
           secret1=$(az keyvault secret show --vault-name chaseTestVault --name secret1 --query value)
-          echo $secret1 >> $GITHUB_ENV
+          echo "::add-mask::$secret1"
+          echo "secret1=$secret1" >> $GITHUB_ENV
 
           secret2=$(az keyvault secret show --vault-name chaseTestVault --name secret2 --query value)
-          echo $secret2 >> $GITHUB_ENV
+          echo "::add-mask::$secret2"
+          echo "secret2=$secret2" >> $GITHUB_ENV
       - name: check secret outputs and env
         run: |-
           echo ${{ env.secret1 }}
