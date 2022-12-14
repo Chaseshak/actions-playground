@@ -25,20 +25,11 @@ jobs:
         uses: azure/cli@v1.0.7
         with:
           inlineScript: |
-            az login -u ${{ secrets.MS_PERSONAL_EMAIL }} -p ${{ secrets.MS_PERSONAL_PASSWORD }}
-            echo $(az account show)
-            az keyvault secret set --vault-name chaseTestVault --name fromActions --value SET
-          # inlineScript: |
-          #   echo secret1=$(az keyvault secret show --vault-name chaseTestVault --name secret1) >> $GITHUB_ENV
-      - name: set job envs
-        shell: bash
-        run: |
-          echo "${{ env.secret1 }}"
-        # run: echo 'ENV_SECRET=${{ steps.az-cli-testing.outputs.Name2 }}' >> $GITHUB_ENV
-      # - run: |-
-      #     echo ${{ steps.az-cli-testing.outputs.Name1 }}
-      #     echo ${{ steps.az-cli-testing.outputs.Name2 }}
-      #     echo ${{ env.ENV_SECRET }}
+            echo secret1=$(az keyvault secret show --vault-name chaseTestVault --name secret1) >> $GITHUB_OUTPUT
+            echo 'ENV_SECRET=$secret1' >> $GITHUB_ENV
+      - run: |-
+          echo ${{ env.ENV_SECRET }}
+          echo ${{ steps.az-cli-testing.outputs.secret1 }}
       # - name: check secret outputs and env
       #   shell: bash
       #   run: |-
