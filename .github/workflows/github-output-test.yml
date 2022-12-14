@@ -23,19 +23,15 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - id: az-cli-testing
         run: |-
-          echo "foo"
-          echo $(az keyvault secret show --vault-name chaseTestVault --name secret1)
-      - run: |-
-          echo "foo"
-      # echo ${{ env.ENV_SECRET }}
-      # echo ${{ steps.az-cli-testing.outputs.secret1 }}
-      # - name: check secret outputs and env
-      #   shell: bash
-      #   run: |-
-      #     if [ ${{ steps.az-cli-testing.outputs.Name1 }} == 'foo' ]; then
-      #       echo "Secret1 (output) is equal to foo"
-      #     fi
-      #     if  [ ${{ env.ENV_SECRET }} == 'bar' ]; then
-      #       echo "Secret2 (env) is equal to bar"
-      #     fi
+          echo secret1=$(az keyvault secret show --vault-name chaseTestVault --name secret1 --query value) >> $GITHUB_OUTPUT
+          echo secret2=$(az keyvault secret show --vault-name chaseTestVault --name secret2 --query value) >> $GITHUB_OUTPUT
+      - name: remap secrets
+        shell: bash
+        run: |-
+          echo ENV_SECRET=${{ steps.az-cli-testing.outputs.secret1 }} >> $GITHUB_ENV
+      - name: check secret outputs and env
+        run: |-
+          echo ${{ steps.az-cli-testing.outputs.secret1 }}
+          echo ${{ steps.az-cli-testing.outputs.secret2 }}
+          echo ${{ env.ENV_SECRET }}
 
