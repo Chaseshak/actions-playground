@@ -33,5 +33,7 @@ jobs:
       - name: check secret outputs and env
         run: |-
           echo ${{ env.secret1 }}
+          echo ${{ env.secret2 }}
+          echo $secret1
           echo $secret2
 
