@@ -25,11 +25,12 @@ jobs:
         uses: azure/cli@v1.0.7
         with:
           inlineScript: |
-            echo secret1=$(az keyvault secret show --vault-name chaseTestVault --name secret1) >> $GITHUB_OUTPUT
-            echo 'ENV_SECRET=$secret1' >> $GITHUB_ENV
+            echo "foo"
+            echo $(az keyvault secret show --vault-name chaseTestVault --name secret1)
       - run: |-
-          echo ${{ env.ENV_SECRET }}
-          echo ${{ steps.az-cli-testing.outputs.secret1 }}
+          echo "foo"
+      # echo ${{ env.ENV_SECRET }}
+      # echo ${{ steps.az-cli-testing.outputs.secret1 }}
       # - name: check secret outputs and env
       #   shell: bash
       #   run: |-
