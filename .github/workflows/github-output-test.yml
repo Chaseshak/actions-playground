@@ -34,4 +34,5 @@ jobs:
           echo ${{ steps.az-cli-testing.outputs.secret1 }}
           echo ${{ steps.az-cli-testing.outputs.secret2 }}
           echo ${{ env.ENV_SECRET }}
+          echo $ENV_SECRET
 
