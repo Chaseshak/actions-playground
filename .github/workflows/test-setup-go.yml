@@ -24,5 +24,5 @@ jobs:
       # Runs a single command using the runners shell
       - uses: actions/setup-go@v3
         with:
-          go-version: 1.13.x
+          go-version: master
       - run: go version
