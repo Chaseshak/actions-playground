@@ -29,5 +29,5 @@ jobs:
         cache: 'sbt'
     - name: Check versions
       run: |-
-        sbt --version
-        jdk --version
+        echo $(sbt --version)
+        echo $(java --version)
