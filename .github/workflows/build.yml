@@ -33,5 +33,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/chaseshak/actions-playground:latest
+          tags: ghcr.io/${{ secrets.REGISTRY_USER }}/actions-playground:latest
           platforms: linux/amd64,linux/arm64
