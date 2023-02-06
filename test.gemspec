@@ -31,9 +31,23 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Uncomment to register a new dependency of your gem
-  # spec.add_dependency "example-gem", "~> 1.0"
 
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
+  spec.add_dependency "activemodel",             "~> 7.0.4"
+  spec.add_dependency "activesupport",           "~> 7.0.4"
+  spec.add_dependency "addressable",             "~> 2.8.0"
+  spec.add_dependency "colorize",                "~> 0.8.1"
+  spec.add_dependency "concurrent-ruby",         "~> 1.1", ">= 1.1.8"
+  spec.add_dependency "dotenv",                  "~> 2.8.1"
+  spec.add_dependency "faraday",                 "~> 2.7.2"
+  spec.add_dependency "faraday-multipart",       "~> 1.0"
+  spec.add_dependency "faraday-http-cache",      "~> 2.4.1"
+  spec.add_dependency "faraday-retry",           "~> 2.0"
+  spec.add_dependency "git",                     "~> 1.8"
+  spec.add_dependency "gitlab_chronic_duration", "~> 0.10.6.2"
+  spec.add_dependency "octokit",                 "~> 5.6.1"
+  spec.add_dependency "require_all",             "~> 3.0.0"
+  spec.add_dependency "ruby-progressbar",        "~> 1.7"
+  spec.add_dependency "thor",                    "~> 1.2.1"
+  spec.add_dependency "uri-ssh_git",             "~> 2.0"
+  spec.add_dependency "validate_url",            "~> 1.0.5"
 end
