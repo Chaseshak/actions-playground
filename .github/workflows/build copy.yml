@@ -1,0 +1,14 @@
+name: Devenv Stuff
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: seanmiddleditch/gha-setup-vsdevenv@master
+      - run: devenv /?
