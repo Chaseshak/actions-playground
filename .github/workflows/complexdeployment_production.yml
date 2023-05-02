@@ -1,0 +1,27 @@
+name: complexdeployment_production
+on:
+#   # This item has no matching transformer
+#   environment-success:
+#     environment: Staging
+  schedule:
+  - cron: 0 0 * * *
+env:
+  quickCompileMavenGoals_experimental: '1'
+  password: "${{ secrets.password }}"
+  username: admin
+jobs:
+  Production:
+    runs-on: ubuntu-latest
+    env:
+      variableName: variableValue
+    steps:
+    - name: Clean working directory
+      run: rm -rf ${{ github.workspace }}/*
+      shell: bash
+    - uses: actions/download-artifact@v3.0.1
+      with:
+        name: IN-COM_Binaries
+        path: "/workdir"
+    - run: |-
+        echo 'hello world'
+        echo "I’m done"
