@@ -1,0 +1,40 @@
+name: complexdeployment_staging
+on:
+#   # This item has no matching transformer
+#   stage-success:
+#     stage: Deploy
+#     branch: branch_PAN-GIT-JOB1-6
+#     description: unicorn
+  repository_dispatch:
+#   # This item has no matching transformer
+#   environment-success:
+#     environment: QA
+#   # This item has no matching transformer
+#     environment: Production
+env:
+  quickCompileMavenGoals_experimental: '1'
+  password: "${{ secrets.password }}"
+  username: admin
+jobs:
+  Staging:
+    runs-on: ubuntu-latest
+    container:
+      image: docker-image-name
+      volumes:
+      - "${{ env.working_directory }}:${{ env.working_directory }}"
+      - "${{ env.tmp_directory }}:${{ env.tmp_directory }}"
+    env:
+      variableName: variableValue
+    steps:
+    - name: Clean working directory
+      run: rm -rf ${{ github.workspace }}/*
+      shell: bash
+    # warning: This will download all available artifacts, ensure this is the correct behavior.
+    - uses: actions/download-artifact@v3.0.1
+      with:
+        path: "/workdir"
+    - run: |-
+        echo 'hello world'
+        echo "I'm done"
+    # warning: This will download all available artifacts, ensure this is the correct behavior.
+    - uses: actions/download-artifact@v3.0.1
