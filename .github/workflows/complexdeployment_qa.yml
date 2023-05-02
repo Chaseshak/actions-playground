@@ -1,0 +1,48 @@
+name: complexdeployment_qa
+on:
+  repository_dispatch:
+#   # This item has no matching transformer
+#   stage-success:
+#     stage: Deploy
+#     branch: branch_PAN-GIT-JOB1-6
+  schedule:
+  - cron: 0 0 * * *
+env:
+  quickCompileMavenGoals_experimental: '1'
+  password: "${{ secrets.password }}"
+  username: admin
+jobs:
+  QA:
+    runs-on:
+      - self-hosted
+      - isDragonLazy
+    container:
+      image: docker-image-name
+    env:
+      variableName: variableValue
+    steps:
+    - name: Clean working directory
+      run: rm -rf ${{ github.workspace }}/*
+      shell: bash
+    # warning: This will download all available artifacts, ensure this is the correct behavior.
+    - uses: actions/download-artifact@v3.0.1
+      with:
+        path: "/workdir"
+    - run: |-
+        echo 'hello world'
+        echo "I'm done"
+    - uses: actions/download-artifact@v3.0.1
+      with:
+        name: IN-COM_my-artifacts
+        path: "/my-artifacts"
+    - run: echo "let's clean it up"
+      if: always()
+    - uses: actions/download-artifact@v3.0.1
+      with:
+        name: IN-COM_All
+      if: always()
+    - uses: actions/download-artifact@v3.0.1
+      with:
+        name: IN-COM_my-artifacts
+        path: "/my-artifacts"
+      if: always()
