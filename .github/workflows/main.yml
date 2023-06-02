@@ -9,7 +9,7 @@ jobs:
         with:
           repository: chaseshak/composite-action-example
       - id: foo
-        uses: chaseshak/composite-action-example@v1
+        uses: chaseshak/composite-action-example@v2
         with:
           who-to-greet: 'Mona the Octocat'
       - run: echo random-number ${{ steps.foo.outputs.random-number }}
