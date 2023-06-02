@@ -13,7 +13,11 @@ jobs:
         with:
           who-to-greet: 'Mona the Octocat'
       - id: nested
-        uses: chaseshak/composite-action-example/.github/actions/other.yml@v2
+        uses: chaseshak/composite-action-example/.github/actions@main
+        with:
+          who-to-greet: 'Mona the Octocat'
+      - id: nested_other
+        uses: chaseshak/composite-action-example/.github/actions@main
         with:
           who-to-greet: 'Mona the Octocat'
       - run: echo random-number ${{ steps.root.outputs.random-number }}
