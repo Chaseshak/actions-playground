@@ -8,9 +8,13 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: chaseshak/composite-action-example
-      - id: foo
+      - id: root
         uses: chaseshak/composite-action-example@v2
         with:
           who-to-greet: 'Mona the Octocat'
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
+      - id: nested
+        uses: chaseshak/composite-action-example/.github/actions/other.yml@v2
+        with:
+          who-to-greet: 'Mona the Octocat'
+      - run: echo random-number ${{ steps.root.outputs.random-number }}
         shell: bash
