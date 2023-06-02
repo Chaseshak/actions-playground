@@ -22,3 +22,9 @@ jobs:
           who-to-greet: 'Mona the Octocat'
       - run: echo random-number ${{ steps.root.outputs.random-number }}
         shell: bash
+  reuse:
+    uses: chaseshak/composite-action-example/custom/workflow.yml@main
+    with:
+      config-path: .github/labeler.yml
+    secrets:
+      envPAT: "ABC"
