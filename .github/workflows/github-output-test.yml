@@ -9,35 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |-
-          echo "fooSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUT
-          echo "barSecret=$(curl 'http://www.randomnumberapi.com/api/v1.0/random')" >> $GITHUB_OUTPUT
-        id: step1
+          exit 1
       - run: |-
-          echo ${{ steps.step1.outputs.fooSecret }}
-          echo ${{ steps.step1.outputs.barSecret }}
-  az-cli-testing:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: azure/login@v1.4.6
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - id: az-cli-testing
-        run: |-
-          for secret_name in secret1 secret2; do
-            secret_value=$(az keyvault secret show --vault-name chaseTestVault --name $secret_name --query value -o tsv)
-            echo "::add-mask::$secret_value"
-            echo "$secret_name=$secret_value" >> $GITHUB_ENV
-          done
-      - name: check secret outputs and env
-        run: |-
-          echo ${{ env.secret1 }}
-          echo ${{ env.secret2 }}
-          echo $secret1
-          echo $secret2
-          if [ $secret1 = "foo" ]; then
-            echo "secret1 is foo"
-          else
-            echo "Hmm unsure"
-          fi
+          echo "I shouldn't run"
+      - run: |-
+          echo "I should always run"
+        id: previous  
+        if: always()
+      - run: |-
+          echo "I should run"
+        if: ${{ steps.previous.conclusion == 'success' }}
 
 
