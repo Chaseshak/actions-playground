@@ -14,10 +14,11 @@ jobs:
           echo "I shouldn't run"
       - run: |-
           echo "I should always run"
+          exit 1
         id: previous  
         if: always()
       - run: |-
-          echo "I should run"
+          echo "I should run based on previous"
         if: ${{ always() && steps.previous.conclusion == 'success' }}
 
 
