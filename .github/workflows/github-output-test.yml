@@ -18,6 +18,6 @@ jobs:
         if: always()
       - run: |-
           echo "I should run"
-        if: ${{ steps.previous.conclusion == 'success' }}
+        if: ${{ always() && steps.previous.conclusion == 'success' }}
 
 
