@@ -1,6 +1,20 @@
 on: [push]
 
 jobs:
+  git_secrets:
+    runs-on: ubuntu-latest
+    name: Testing making some secrets
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: git-secrets
+          repository: awslabs/git-secrets
+      - run: |
+          cd git-secrets
+          sudo make install
+          git secrets --register-aws --global
+          cd ..
+      - run: git secrets --help
   hello_world_job:
     runs-on: ubuntu-latest
     name: A job to say hello
@@ -22,9 +36,3 @@ jobs:
           who-to-greet: 'Mona the Octocat'
       - run: echo random-number ${{ steps.root.outputs.random-number }}
         shell: bash
-  reuse:
-    uses: chaseshak/composite-action-example/custom/workflow.yml@main
-    with:
-      config-path: .github/labeler.yml
-    secrets:
-      envPAT: "ABC"
