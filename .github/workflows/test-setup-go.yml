@@ -21,6 +21,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - run: which sftp
       - uses: actions/checkout@v3
       - run: echo $version
       - uses: actions/checkout@v3.5.0
